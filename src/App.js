@@ -6,6 +6,9 @@ import * as cocossd from "@tensorflow-models/coco-ssd";
 //import webcam
 import Webcam from "react-webcam";
 
+const girl = require("./images/creepy_girl_no_eyes.png");
+const eyes = require("./images/creepy_girl_eyes.png");
+
 function App() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
@@ -74,6 +77,38 @@ function App() {
             height: 480,
           }}
         />
+        <img
+          src={girl}
+          alt="creepy painting of girl"
+          style={{
+            position: "absolute",
+            marginLeft: "auto",
+            marginRight: "auto",
+            left: 0,
+            right: 0,
+            top: "10%",
+            textAlign: "center",
+            zindex: 20,
+            width: 640,
+            height: 480,
+          }}
+        ></img>
+        <img
+          src={eyes}
+          alt="creepy painting of girl"
+          style={{
+            position: "absolute",
+            marginLeft: "auto",
+            marginRight: "auto",
+            left: 0,
+            right: 0,
+            top: "10%",
+            textAlign: "center",
+            zindex: 21,
+            width: 640,
+            height: 480,
+          }}
+        ></img>
 
         <canvas
           ref={canvasRef}
@@ -90,20 +125,6 @@ function App() {
             height: 480,
           }}
         />
-        <div
-          style={{
-            position: "absolute",
-            marginLeft: "auto",
-            marginRight: "auto",
-            left: 0,
-            right: 0,
-            top: "10%",
-            zindex: 10,
-            width: 2,
-            height: 480,
-            backgroundColor: "black",
-          }}
-        ></div>
       </div>
     </div>
   );
@@ -111,12 +132,29 @@ function App() {
 
 export default App;
 
-//rather than rendering the webcam, show an image on screen with blank eyes
+//////////////////////////////////////////////////////////////////////////
+/////////////       TO DO     ////////////////
+/////////////////////////////////////////////////////////////////////////
+/*
 
-//draw eyes on the screen at default value
+YO should i not do a creepy girl? maybe i can make something goofier, or have it swap by preference? :thinking:
 
-//track 1 person
-////////this could be tricky, either pick based off of position or pick besed off of certainty. i think ill try certainty first and see how that behaves.
+rather than rendering the webcam, show an image on screen with blank eyes
 
-//adjust eye location within bounds as target moves
-////////take loc of person, turn that into a percent of screen resolution (both x and y), move eyes to same percent of bounding box for eye movement.
+draw eyes on the screen at default value
+
+track 1 person
+  this could be tricky, either pick based off of position or pick besed off of certainty. i think ill try certainty first and see how that behaves.
+
+adjust eye location within bounds as target moves
+  take loc of person, turn that into a percent of screen resolution (both x and y), move eyes to same percent of bounding box for eye movement.
+
+
+change the image to 3 layers
+1st layer for just the eyes (no pupils)
+2nd layer for just the pupils (this layer translates)
+3rd layer for girl w/ cut outs for eyes
+
+adjust image sizes and dont render webcam output in browser
+
+*/
