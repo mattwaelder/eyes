@@ -157,4 +157,5 @@ change the image to 3 layers
 
 adjust image sizes and dont render webcam output in browser
 
+make the location of the eyes based on some state which is updated with information from the webcam
 */
