@@ -6,8 +6,9 @@ import * as cocossd from "@tensorflow-models/coco-ssd";
 //import webcam
 import Webcam from "react-webcam";
 
-const girl = require("./images/creepy_girl_no_eyes.png");
 const eyes = require("./images/creepy_girl_eyes.png");
+const pupils = require("./images/creepy_girl_pupils.png");
+const girl = require("./images/creepy_girl_no_eyes.png");
 
 function App() {
   const webcamRef = useRef(null);
@@ -74,25 +75,9 @@ function App() {
             textAlign: "center",
             zindex: 9,
             width: 640,
-            height: 480,
+            height: 640,
           }}
         />
-        <img
-          src={girl}
-          alt="creepy painting of girl"
-          style={{
-            position: "absolute",
-            marginLeft: "auto",
-            marginRight: "auto",
-            left: 0,
-            right: 0,
-            top: "10%",
-            textAlign: "center",
-            zindex: 20,
-            width: 640,
-            height: 480,
-          }}
-        ></img>
         <img
           src={eyes}
           alt="creepy painting of girl"
@@ -104,9 +89,41 @@ function App() {
             right: 0,
             top: "10%",
             textAlign: "center",
+            zindex: 20,
+            width: 640,
+            height: 640,
+          }}
+        ></img>
+        <img
+          src={pupils}
+          alt="creepy painting of girl"
+          style={{
+            position: "absolute",
+            marginLeft: "auto",
+            marginRight: "auto",
+            left: 0,
+            right: 0,
+            top: "10%",
+            textAlign: "center",
             zindex: 21,
             width: 640,
-            height: 480,
+            height: 640,
+          }}
+        ></img>
+        <img
+          src={girl}
+          alt="creepy painting of girl"
+          style={{
+            position: "absolute",
+            marginLeft: "auto",
+            marginRight: "auto",
+            left: 0,
+            right: 0,
+            top: "10%",
+            textAlign: "center",
+            zindex: 22,
+            width: 640,
+            height: 640,
           }}
         ></img>
 
@@ -122,7 +139,7 @@ function App() {
             textAlign: "center",
             zindex: 8,
             width: 640,
-            height: 480,
+            height: 640,
           }}
         />
       </div>
@@ -157,5 +174,5 @@ change the image to 3 layers
 
 adjust image sizes and dont render webcam output in browser
 
-make the location of the eyes based on some state which is updated with information from the webcam
+make the location of the pupils based on some state which is updated with information from the webcam
 */
