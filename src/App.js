@@ -9,6 +9,7 @@ import Webcam from "react-webcam";
 import Eyes from "./Eyes.jsx";
 import Pupils from "./Pupils.jsx";
 import Girl from "./Girl.jsx";
+import { lookAt } from "./helpers.js";
 
 const eyes_img = require("./images/creepy_girl_eyes.png");
 const pupils_img = require("./images/creepy_girl_pupils.png");
@@ -19,8 +20,10 @@ function App() {
   // const canvasRef = useRef(null);
 
   let detections = [];
-  const desiredObject = "car"; // "cell phone"
+  const desiredObject = "cell phone"; // "cell phone"
   let confidenceFloor = 0.51;
+  const frameWidth = 640;
+  const frameHeight = 640;
 
   const [translation, setTranslation] = useState({ x: 0, y: 0 });
 
@@ -29,7 +32,7 @@ function App() {
     //refresh in ms (framerate)
     setInterval(() => {
       detect(network);
-    }, 100); //100ms is 10/s
+    }, 1000); //100ms is 10/s
   };
 
   const detect = async (network) => {
@@ -52,7 +55,15 @@ function App() {
 
       //detect objects in video from network
       const objects = await network.detect(video);
-      // console.log(objects);
+      //array of obj: {bbox [], class str, score num}
+
+      let pos = lookAt(objects, frameWidth, frameHeight);
+
+      console.log(pos);
+      //take the object that is most likely a person
+      //find the center mass of the person from bbox
+      //find percent of x and y values for that center mass point
+      //set the translation with those percents for both x and y
 
       ///////////////////////////////
       //DO WORK ON OBJECT TO TRACK IT
@@ -80,13 +91,18 @@ function App() {
             top: "10%",
             textAlign: "center",
             zindex: 0,
-            width: 640,
-            height: 640,
+            width: frameWidth,
+            height: frameHeight,
           }}
         />
-        <Eyes image={eyes_img} />
-        <Pupils image={pupils_img} translation={translation} />
-        <Girl image={girl_img} />
+        <Eyes image={eyes_img} width={frameWidth} height={frameHeight} />
+        <Pupils
+          image={pupils_img}
+          width={frameWidth}
+          height={frameHeight}
+          translation={translation}
+        />
+        <Girl image={girl_img} width={frameWidth} height={frameHeight} />
 
         {/* <canvas
           ref={canvasRef}

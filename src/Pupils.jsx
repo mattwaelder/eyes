@@ -1,6 +1,6 @@
 import React from "react";
 
-const Pupils = ({ image, translation }) => {
+const Pupils = ({ image, width, height, translation }) => {
   return (
     <div>
       <img
@@ -15,8 +15,8 @@ const Pupils = ({ image, translation }) => {
           top: "10%",
           textAlign: "center",
           zindex: 21,
-          width: 640,
-          height: 640,
+          width: width,
+          height: height,
           transform: `translate(${translation.x}px, ${translation.y}px)`,
         }}
       ></img>

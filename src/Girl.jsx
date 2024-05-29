@@ -1,6 +1,6 @@
 import React from "react";
 
-const Girl = ({ image }) => {
+const Girl = ({ image, width, height }) => {
   return (
     <img
       src={image}
@@ -14,8 +14,8 @@ const Girl = ({ image }) => {
         top: "10%",
         textAlign: "center",
         zindex: 22,
-        width: 640,
-        height: 640,
+        width: width,
+        height: height,
       }}
     ></img>
   );
