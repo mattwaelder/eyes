@@ -19,20 +19,19 @@ function App() {
   const webcamRef = useRef(null);
   // const canvasRef = useRef(null);
 
-  let detections = [];
-  const desiredObject = "cell phone"; // "cell phone"
+  const desiredObject = "person"; // "cell phone"
   let confidenceFloor = 0.51;
   const frameWidth = 640;
   const frameHeight = 640;
 
-  const [translation, setTranslation] = useState({ x: 0, y: 0 });
+  const [translation, setTranslation] = useState(0);
 
   const runCoco = async () => {
     const network = await cocossd.load();
     //refresh in ms (framerate)
     setInterval(() => {
       detect(network);
-    }, 1000); //100ms is 10/s
+    }, 200); //100ms is 10/s
   };
 
   const detect = async (network) => {
@@ -57,9 +56,14 @@ function App() {
       const objects = await network.detect(video);
       //array of obj: {bbox [], class str, score num}
 
-      let pos = lookAt(objects, frameWidth, frameHeight);
+      let movement = lookAt(objects, frameWidth, frameHeight);
+      if (!movement || !movement.movementX || !movement.movementY) return;
 
-      console.log(pos);
+      if (movement !== undefined) {
+        let { movementX, movementY } = movement;
+        setTranslation({ movementX, movementY });
+      }
+
       //take the object that is most likely a person
       //find the center mass of the person from bbox
       //find percent of x and y values for that center mass point
@@ -152,4 +156,11 @@ change the image to 3 layers
 adjust image sizes and dont render webcam output in browser
 
 make the location of the pupils based on some state which is updated with information from the webcam
+
+WORKING
+now that the eyes can move, theres some things i can do:
+  keep it as is and just clean up the code
+  smooth out the animation and adjust the gaze to be more head level
+  implement this on phones to work with the front facing camera
+  pretty it up w/ a picture frame and a background wall
 */
