@@ -24,14 +24,17 @@ function App() {
   const frameWidth = 640;
   const frameHeight = 640;
 
-  const [translation, setTranslation] = useState(0);
+  const [translation, setTranslation] = useState({
+    movementX: 0,
+    movementY: 0,
+  });
 
   const runCoco = async () => {
     const network = await cocossd.load();
     //refresh in ms (framerate)
     setInterval(() => {
       detect(network);
-    }, 200); //100ms is 10/s
+    }, 3000); //100ms is 10/s
   };
 
   const detect = async (network) => {
@@ -81,6 +84,9 @@ function App() {
 
   return (
     <div className="App">
+      <div>
+        <h1>{`X: ${translation.movementX}, Y: ${translation.movementY}`}</h1>
+      </div>
       <div>
         <Webcam
           ref={webcamRef}
@@ -163,4 +169,7 @@ now that the eyes can move, theres some things i can do:
   smooth out the animation and adjust the gaze to be more head level
   implement this on phones to work with the front facing camera
   pretty it up w/ a picture frame and a background wall
+
+
+so i just was testing it out with the slow eye refresh rate, and because its really dark in here she got stuck looking far to one side and i couldnt get her to look strait. i turned around to look at the ligth over my shoulder and said out loud that it must be too dark in here for it to work, but when i turned around she was looking right at me and it was a bit spooky man.
 */
