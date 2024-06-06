@@ -1,9 +1,10 @@
 .App {
   text-align: center;
   width: 100vw;
-  height: 100vh;
+  height: 200vh;
   background-image: url("./images/wall_darker.png");
   background-size: cover;
+  background-repeat: repeat;
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -12,8 +13,19 @@
 
 Footer {
   position: fixed;
+  width: 15vw;
   left: 20px;
   bottom: 0px;
   color: white;
   font-family: "Courier New", Courier, monospace;
+  z-index: 1;
+}
+
+h1 {
+  display: fixed;
+  top: 0;
+  right: 0;
+  color: white;
+  font-size: 2em;
+  z-index: 50;
 }

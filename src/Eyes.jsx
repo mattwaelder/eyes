@@ -11,7 +11,7 @@ const Eyes = ({ image, width, height }) => {
         marginRight: "auto",
         left: 0,
         right: 0,
-        top: "150px",
+        top: "120px",
         textAlign: "center",
         zindex: 20,
         width: width,

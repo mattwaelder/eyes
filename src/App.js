@@ -27,7 +27,7 @@ function App() {
 
   const frameWidth = 640;
   const frameHeight = 640;
-  const refreshRateMS = 3000; //refresh rate of app, in ms (100ms === 10/s)
+  const refreshRateMS = 200; //refresh rate of app, in ms (100ms === 10/s)
   //state for eye translation
   const [translation, setTranslation] = useState({
     movementX: 0,
@@ -87,9 +87,16 @@ function App() {
           muted={true}
           mirrored={false}
           style={{
+            position: "absolute",
+            marginLeft: "auto",
+            marginRight: "auto",
+            left: 0,
+            right: 0,
+            top: "120px",
+            textAlign: "center",
+            zindex: 0,
             width: frameWidth,
             height: frameHeight,
-            display: "none",
           }}
         />
         <Eyes image={eyes_img} width={frameWidth} height={frameHeight} />
@@ -102,6 +109,7 @@ function App() {
         <Girl image={girl_img} width={frameWidth} height={frameHeight} />
         <img
           src={frame}
+          alt="Frame"
           style={{
             position: "absolute",
             marginLeft: "auto",
@@ -111,11 +119,12 @@ function App() {
             top: 0,
             width: "900px",
             height: "900px",
+            zIndex: "30",
           }}
         ></img>
       </div>
       <footer>
-        <p>Frame and Background Designed by Freepik</p>
+        <p>Frame and Background Originally Designed by Freepik</p>
       </footer>
     </div>
   );
@@ -140,4 +149,5 @@ now that the eyes can move, theres some things i can do:
 
 so i just was testing it out with the slow eye refresh rate, and because its really dark in here she got stuck looking far to one side and i couldnt get her to look strait. i turned around to look at the ligth over my shoulder and said out loud that it must be too dark in here for it to work, but when i turned around she was looking right at me and it was a bit spooky man.
 
+file sizes are a bit large right now. i should swap to webp
 */
