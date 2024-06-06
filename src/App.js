@@ -20,7 +20,7 @@ import { lookAt } from "./helpers.js";
 const eyes_img = require("./images/creepy_girl_eyes.png");
 const pupils_img = require("./images/creepy_girl_pupils.png");
 const girl_img = require("./images/creepy_girl_no_eyes.png");
-const wall_img = require("./images/frame_on_wall.png");
+const frame = require("./images/frame.png");
 
 function App() {
   const webcamRef = useRef(null);
@@ -81,36 +81,42 @@ function App() {
       <div>
         {/* <h1>{`X: ${translation.movementX}, Y: ${translation.movementY}`}</h1> */}
       </div>
-      <div className="frameContainer">
-        <div>
-          <Webcam
-            ref={webcamRef}
-            muted={true}
-            mirrored={false}
-            style={{
-              position: "absolute",
-              marginLeft: "auto",
-              marginRight: "auto",
-              left: 0,
-              right: 0,
-              top: "10%",
-              textAlign: "center",
-              zindex: 0,
-              width: frameWidth,
-              height: frameHeight,
-              display: "none",
-            }}
-          />
-          <Eyes image={eyes_img} width={frameWidth} height={frameHeight} />
-          <Pupils
-            image={pupils_img}
-            width={frameWidth}
-            height={frameHeight}
-            translation={translation}
-          />
-          {/* <Girl image={girl_img} width={frameWidth} height={frameHeight} /> */}
-        </div>
+      <div>
+        <Webcam
+          ref={webcamRef}
+          muted={true}
+          mirrored={false}
+          style={{
+            width: frameWidth,
+            height: frameHeight,
+            display: "none",
+          }}
+        />
+        <Eyes image={eyes_img} width={frameWidth} height={frameHeight} />
+        <Pupils
+          image={pupils_img}
+          width={frameWidth}
+          height={frameHeight}
+          translation={translation}
+        />
+        <Girl image={girl_img} width={frameWidth} height={frameHeight} />
+        <img
+          src={frame}
+          style={{
+            position: "absolute",
+            marginLeft: "auto",
+            marginRight: "auto",
+            left: 0,
+            right: 0,
+            top: 0,
+            width: "900px",
+            height: "900px",
+          }}
+        ></img>
       </div>
+      <footer>
+        <p>Frame and Background Designed by Freepik</p>
+      </footer>
     </div>
   );
 }

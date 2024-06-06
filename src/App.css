@@ -2,18 +2,18 @@
   text-align: center;
   width: 100vw;
   height: 100vh;
-  background-image: url("./images/wallpaper.png");
+  background-image: url("./images/wall_darker.png");
   background-size: cover;
   overflow: hidden;
-}
-
-.frameContainer {
-  width: 100vw;
-  height: 100vh;
-  /* background-image: url("./images/frame.png");
-  background-size: cover; */
   display: flex;
   justify-content: center;
   align-items: center;
-  background-repeat: no-repeat;
+}
+
+Footer {
+  position: fixed;
+  left: 20px;
+  bottom: 0px;
+  color: white;
+  font-family: "Courier New", Courier, monospace;
 }

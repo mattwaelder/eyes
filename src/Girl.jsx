@@ -11,11 +11,12 @@ const Girl = ({ image, width, height }) => {
         marginRight: "auto",
         left: 0,
         right: 0,
-        top: "5vh",
+        top: "150px",
         textAlign: "center",
         zindex: 22,
         width: width,
         height: height,
+        // display: "none",
       }}
     ></img>
   );
