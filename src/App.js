@@ -20,13 +20,14 @@ import { lookAt } from "./helpers.js";
 const eyes_img = require("./images/creepy_girl_eyes.png");
 const pupils_img = require("./images/creepy_girl_pupils.png");
 const girl_img = require("./images/creepy_girl_no_eyes.png");
+const wall_img = require("./images/frame_on_wall.png");
 
 function App() {
   const webcamRef = useRef(null);
 
   const frameWidth = 640;
   const frameHeight = 640;
-  const refreshRateMS = 200; //refresh rate of app, in ms (100ms === 10/s)
+  const refreshRateMS = 3000; //refresh rate of app, in ms (100ms === 10/s)
   //state for eye translation
   const [translation, setTranslation] = useState({
     movementX: 0,
@@ -80,32 +81,35 @@ function App() {
       <div>
         {/* <h1>{`X: ${translation.movementX}, Y: ${translation.movementY}`}</h1> */}
       </div>
-      <div>
-        <Webcam
-          ref={webcamRef}
-          muted={true}
-          mirrored={false}
-          style={{
-            position: "absolute",
-            marginLeft: "auto",
-            marginRight: "auto",
-            left: 0,
-            right: 0,
-            top: "10%",
-            textAlign: "center",
-            zindex: 0,
-            width: frameWidth,
-            height: frameHeight,
-          }}
-        />
-        <Eyes image={eyes_img} width={frameWidth} height={frameHeight} />
-        <Pupils
-          image={pupils_img}
-          width={frameWidth}
-          height={frameHeight}
-          translation={translation}
-        />
-        <Girl image={girl_img} width={frameWidth} height={frameHeight} />
+      <div className="frameContainer">
+        <div>
+          <Webcam
+            ref={webcamRef}
+            muted={true}
+            mirrored={false}
+            style={{
+              position: "absolute",
+              marginLeft: "auto",
+              marginRight: "auto",
+              left: 0,
+              right: 0,
+              top: "10%",
+              textAlign: "center",
+              zindex: 0,
+              width: frameWidth,
+              height: frameHeight,
+              display: "none",
+            }}
+          />
+          <Eyes image={eyes_img} width={frameWidth} height={frameHeight} />
+          <Pupils
+            image={pupils_img}
+            width={frameWidth}
+            height={frameHeight}
+            translation={translation}
+          />
+          {/* <Girl image={girl_img} width={frameWidth} height={frameHeight} /> */}
+        </div>
       </div>
     </div>
   );

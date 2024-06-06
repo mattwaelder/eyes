@@ -11,7 +11,7 @@ const Girl = ({ image, width, height }) => {
         marginRight: "auto",
         left: 0,
         right: 0,
-        top: "10%",
+        top: "5vh",
         textAlign: "center",
         zindex: 22,
         width: width,

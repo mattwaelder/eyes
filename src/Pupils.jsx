@@ -13,7 +13,7 @@ const Pupils = ({ image, width, height, translation }) => {
           marginRight: "auto",
           left: 0,
           right: 0,
-          top: "10%",
+          top: "5vh",
           textAlign: "center",
           zindex: 21,
           width: width,
