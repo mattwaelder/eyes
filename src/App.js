@@ -6,35 +6,40 @@ import * as cocossd from "@tensorflow-models/coco-ssd";
 //import webcam
 import Webcam from "react-webcam";
 
+//components for each layer of image
 import Eyes from "./Eyes.jsx";
 import Pupils from "./Pupils.jsx";
 import Girl from "./Girl.jsx";
 import { lookAt } from "./helpers.js";
 
+/* for effect, layer like:
+  eyeball w/out pupils
+  pupils only
+  rest of image w/out eyes
+*/
 const eyes_img = require("./images/creepy_girl_eyes.png");
 const pupils_img = require("./images/creepy_girl_pupils.png");
 const girl_img = require("./images/creepy_girl_no_eyes.png");
 
 function App() {
   const webcamRef = useRef(null);
-  // const canvasRef = useRef(null);
 
-  const desiredObject = "person"; // "cell phone"
-  let confidenceFloor = 0.51;
   const frameWidth = 640;
   const frameHeight = 640;
-
+  const refreshRateMS = 200; //refresh rate of app, in ms (100ms === 10/s)
+  //state for eye translation
   const [translation, setTranslation] = useState({
     movementX: 0,
     movementY: 0,
   });
 
+  //detect objects in view at interval
   const runCoco = async () => {
     const network = await cocossd.load();
     //refresh in ms (framerate)
     setInterval(() => {
       detect(network);
-    }, 3000); //100ms is 10/s
+    }, refreshRateMS);
   };
 
   const detect = async (network) => {
@@ -46,34 +51,22 @@ function App() {
       const video = webcamRef.current.video;
       const videoWidth = webcamRef.current.video.videoWidth;
       const videoHeight = webcamRef.current.video.videoHeight;
-
-      //ensure video and canvas are same dimensions
-      //cam
+      //ensure dimensions
       webcamRef.current.video.width = videoWidth;
       webcamRef.current.video.height = videoHeight;
-      //canvas
-      // canvasRef.current.width = videoWidth;
-      // canvasRef.current.height = videoHeight;
 
       //detect objects in video from network
       const objects = await network.detect(video);
-      //array of obj: {bbox [], class str, score num}
+      //objects = array of obj: {bbox [], class str, score num}
 
+      //retrieve eye movements
       let movement = lookAt(objects, frameWidth, frameHeight);
       if (!movement || !movement.movementX || !movement.movementY) return;
-
+      //update eye position state
       if (movement !== undefined) {
         let { movementX, movementY } = movement;
         setTranslation({ movementX, movementY });
       }
-
-      //take the object that is most likely a person
-      //find the center mass of the person from bbox
-      //find percent of x and y values for that center mass point
-      //set the translation with those percents for both x and y
-
-      ///////////////////////////////
-      //DO WORK ON OBJECT TO TRACK IT
     }
   };
 
@@ -85,7 +78,7 @@ function App() {
   return (
     <div className="App">
       <div>
-        <h1>{`X: ${translation.movementX}, Y: ${translation.movementY}`}</h1>
+        {/* <h1>{`X: ${translation.movementX}, Y: ${translation.movementY}`}</h1> */}
       </div>
       <div>
         <Webcam
@@ -113,22 +106,6 @@ function App() {
           translation={translation}
         />
         <Girl image={girl_img} width={frameWidth} height={frameHeight} />
-
-        {/* <canvas
-          ref={canvasRef}
-          style={{
-            position: "absolute",
-            marginLeft: "auto",
-            marginRight: "auto",
-            left: 0,
-            right: 0,
-            top: "10%",
-            textAlign: "center",
-            zindex: 8,
-            width: 640,
-            height: 640,
-          }}
-        /> */}
       </div>
     </div>
   );
@@ -143,26 +120,6 @@ export default App;
 
 YO should i not do a creepy girl? maybe i can make something goofier, or have it swap by preference? :thinking:
 
-rather than rendering the webcam, show an image on screen with blank eyes
-
-draw eyes on the screen at default value
-
-track 1 person
-  this could be tricky, either pick based off of position or pick besed off of certainty. i think ill try certainty first and see how that behaves.
-
-adjust eye location within bounds as target moves
-  take loc of person, turn that into a percent of screen resolution (both x and y), move eyes to same percent of bounding box for eye movement.
-
-
-change the image to 3 layers
-1st layer for just the eyes (no pupils)
-2nd layer for just the pupils (this layer translates)
-3rd layer for girl w/ cut outs for eyes
-
-adjust image sizes and dont render webcam output in browser
-
-make the location of the pupils based on some state which is updated with information from the webcam
-
 WORKING
 now that the eyes can move, theres some things i can do:
   keep it as is and just clean up the code
@@ -172,4 +129,5 @@ now that the eyes can move, theres some things i can do:
 
 
 so i just was testing it out with the slow eye refresh rate, and because its really dark in here she got stuck looking far to one side and i couldnt get her to look strait. i turned around to look at the ligth over my shoulder and said out loud that it must be too dark in here for it to work, but when i turned around she was looking right at me and it was a bit spooky man.
+
 */

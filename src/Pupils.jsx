@@ -1,7 +1,7 @@
 import React from "react";
 
 const Pupils = ({ image, width, height, translation }) => {
-  console.log(translation);
+  /*  THE TRANSITION BELOW EFFECTS THE MOVEMENT OF THE EYES, IN PARTICULAR THE DELAY */
   return (
     <div>
       <img
@@ -18,8 +18,8 @@ const Pupils = ({ image, width, height, translation }) => {
           zindex: 21,
           width: width,
           height: height,
-          // transform: `translate(${translation.x}px, ${translation.y}px)`,
           transform: `translate(${translation.movementX}px, ${translation.movementY}px)`,
+          transition: "all 200ms ease-out",
         }}
       ></img>
     </div>

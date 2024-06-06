@@ -1,42 +1,33 @@
 export const lookAt = (objects, width, height) => {
+  //objects.bbox is an array like [x, y, width, height]
   if (objects.length === 0 || !objects) return;
 
-  //only want to look at people
+  //filter only for people
   objects.filter((obj) => (obj.class = "person"));
 
-  //would like to look at the most clear person on the screen
+  //of all detected people, get the most certain
   let bestPerson = objects.reduce((max, el) =>
     el.score > max ? max === el.score : max === max
   );
-
   if (!bestPerson || typeof bestPerson !== "object") return;
-  //bbox is an array like [x, y, width, height]
 
-  //width of the object devided by two plus x, find the percent this value is of full frame width
+  //find % translation X & Y of center mass of person
   let translationX =
     ((bestPerson.bbox[0] + bestPerson.bbox[2] / 2) / width) * 100;
-
   let translationY =
     ((bestPerson.bbox[1] + bestPerson.bbox[3] / 2) / height) * 100;
-  //camera is inverse, so i want the difference between 100% and the % of X translation. also round it, may need to account for out of bounds values later
 
-  //doesnt seem to go above 80% or below 20% in practice
   let xVal = 100 - Math.round(translationX);
   let yVal = 100 - Math.round(translationY);
 
-  //i need to take the percents and return position for the eyes
-  //i dont want the eyes moving any more than + or - 10 px in either x,y direction
   //values above 50% are positive transformations, values below 50% are negative
-
-  //if 50% i want no translation
-  //if 10% i want -9 translation
-
-  const maxTravelX = 20;
+  //setting boundaries for how far the pupils can travel in each direction
+  const maxTravelX = 30; //max was 20
   const halfTravelX = maxTravelX / 2;
-
-  const maxTravelY = 20;
+  const maxTravelY = 30; //max was 20
   const halfTravelY = maxTravelY / 2;
 
+  //get X & Y pixel translation values based on position of center mass of person
   xVal = Math.round((xVal / 100) * maxTravelX);
   if (xVal < 0) xVal = 0;
   if (xVal > maxTravelX) xVal = maxTravelX;
@@ -57,7 +48,10 @@ export const lookAt = (objects, width, height) => {
   if (yVal < halfTravelY) movementY = -(halfTravelY - yVal);
   if (xVal < halfTravelX) movementX = -(halfTravelX - xVal);
 
+  //fix to mirror y movement
   movementY *= -1;
+
+  //return pixel translation values for both dimensions
   let result = { movementX, movementY };
   return result;
 };
