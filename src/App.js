@@ -17,10 +17,10 @@ import { lookAt } from "./helpers.js";
   pupils only
   rest of image w/out eyes
 */
-const eyes_img = require("./images/creepy_girl_eyes.png");
-const pupils_img = require("./images/creepy_girl_pupils.png");
-const girl_img = require("./images/creepy_girl_no_eyes.png");
-const frame = require("./images/frame.png");
+const eyes_img = require("./images/creepy_girl_eyes.webp");
+const pupils_img = require("./images/creepy_girl_pupils.webp");
+const girl_img = require("./images/creepy_girl_no_eyes.webp");
+const frame = require("./images/frame.webp");
 
 function App() {
   const webcamRef = useRef(null);
